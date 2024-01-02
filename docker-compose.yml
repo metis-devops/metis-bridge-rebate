@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    pull_policy: always
+    restart: unless-stopped
+    stop_grace_period: 1m
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=passwd
+      - MYSQL_DATABASE=metis
+    volumes:
+      - $PWD/tmp/mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "5"
+
+  migrate:
+    image: migrate/migrate
+    pull_policy: always
+    restart: "no"
+    volumes:
+      - $PWD/migrations:/migrations
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command:
+      - -path=/migrations/
+      - -database=mysql://root:passwd@tcp(mysql:3306)/metis
+      - up
+
+  faucet:
+    build: .
+    restart: unless-stopped
+    stop_grace_period: 1m
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    volumes:
+      - $PWD/key.txt:/key.txt
+    command:
+      - -mysql=root:passwd@tcp(mysql:3306)/metis?parseTime=true
+      - -range=50000
+      - -key=/key.txt
+      - -mindepoist=250
+      - -maxdrip=100
+      - -event
+      - -event-start=1668643200
+      - -event-end=1668902400
+      - -faucet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "5"
