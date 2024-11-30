@@ -14,7 +14,7 @@ type Uniswap struct {
 }
 
 func NewUniswap() *Uniswap {
-	const uniswapv3_subgraph_api = "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3"
+	const uniswapv3_subgraph_api = "https://subgraph.satsuma-prod.com/b91d46e5018b/metis/community/uniswap-v3-mainnet/version/0.0.1/api"
 	return &Uniswap{graphql.New(uniswapv3_subgraph_api)}
 }
 
