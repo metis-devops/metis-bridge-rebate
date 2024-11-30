@@ -166,6 +166,9 @@ func (s *Faucet) shouldTransfer(basectx context.Context, pc *policy.Drip, item *
 		if !utils.IsStableL1Token(item.L1Token) {
 			tokenInfo, err := s.Uniswap.GetToken(newctx, item.L1Token)
 			if err != nil {
+				if err == utils.ErrNoTokenInfo {
+					return ErrorNoNeedToTransfer{msg: err.Error()}
+				}
 				return err
 			}
 			rate = tokenInfo.ValueInUSD

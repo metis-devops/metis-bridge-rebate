@@ -67,10 +67,8 @@ func (c Uniswap) GetToken(ctx context.Context, tokenAddress string) (*GetTokenRe
 		return nil, err
 	}
 
-	// fmt.Printf("%+v", result)
-
 	if len(result.EthPrices) == 0 {
-		return nil, errors.New("no eth price result")
+		return nil, ErrNoTokenInfo
 	}
 
 	if len(result.TokenInfo) == 0 {
