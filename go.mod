@@ -1,4 +1,4 @@
-module github.com/ericlee42/metis-bridge-rebate
+module github.com/metis-devops/metis-bridge-rebate
 
 go 1.23
 

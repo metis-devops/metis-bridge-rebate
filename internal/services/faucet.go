@@ -8,15 +8,15 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/ericlee42/metis-bridge-rebate/internal/goabi"
-	"github.com/ericlee42/metis-bridge-rebate/internal/repository"
-	"github.com/ericlee42/metis-bridge-rebate/internal/services/policy"
-	"github.com/ericlee42/metis-bridge-rebate/internal/utils"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/metis-devops/metis-bridge-rebate/internal/goabi"
+	"github.com/metis-devops/metis-bridge-rebate/internal/repository"
+	"github.com/metis-devops/metis-bridge-rebate/internal/services/policy"
+	"github.com/metis-devops/metis-bridge-rebate/internal/utils"
 	"github.com/sirupsen/logrus"
 )
 

@@ -8,12 +8,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ericlee42/metis-bridge-rebate/internal/goabi"
-	"github.com/ericlee42/metis-bridge-rebate/internal/repository"
-	"github.com/ericlee42/metis-bridge-rebate/internal/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/islishude/bigint"
+	"github.com/metis-devops/metis-bridge-rebate/internal/goabi"
+	"github.com/metis-devops/metis-bridge-rebate/internal/repository"
+	"github.com/metis-devops/metis-bridge-rebate/internal/utils"
 	"github.com/sirupsen/logrus"
 )
 

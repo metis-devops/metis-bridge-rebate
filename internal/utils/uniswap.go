@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ericlee42/metis-bridge-rebate/internal/graphql"
+	"github.com/metis-devops/metis-bridge-rebate/internal/graphql"
 )
 
 type Uniswap struct {
