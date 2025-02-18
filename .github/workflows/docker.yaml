@@ -1,11 +1,10 @@
 name: docker
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - "main"
     tags:
-      - "v*.*.*"
+      - "*"
 
 jobs:
   docker-build-push:
@@ -28,7 +27,7 @@ jobs:
           password: ${{ secrets.METIS_DOCKER_ACCESS_KEY  }}
 
       - name: Docker meta
-        id: docker-meta-keepalive
+        id: docker-meta
         uses: docker/metadata-action@v5
         with:
           images: metisdao/metis-bridge-rebate
@@ -38,25 +37,9 @@ jobs:
         timeout-minutes: 10
         with:
           push: true
-          tags: ${{ steps.docker-meta-keepalive.outputs.tags }}
-          target: keepalive
+          tags: ${{ steps.docker-meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
-
-      - name: Docker meta for metis-healthy
-        id: docker-meta-healthy
-        uses: docker/metadata-action@v5
-        with:
-          images: metisdao/metis-healthy
-
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        timeout-minutes: 10
-        with:
-          push: true
-          target: healthy
-          tags: ${{ steps.docker-meta-healthy.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/amd64
+          provenance: false
+          sbom: false
