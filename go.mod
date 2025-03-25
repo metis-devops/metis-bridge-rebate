@@ -1,11 +1,11 @@
 module github.com/metis-devops/metis-bridge-rebate
 
 go 1.23
-toolchain go1.23.3
+toolchain go1.24.1
 
 require (
 	github.com/ethereum/go-ethereum v1.15.2
-	github.com/go-sql-driver/mysql v1.8.1
+	github.com/go-sql-driver/mysql v1.9.1
 	github.com/islishude/bigint v1.3.3
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/sirupsen/logrus v1.9.3
