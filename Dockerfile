@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM golang:1.25.1 AS builder
+FROM golang:1.25.3 AS builder
 RUN apt update && apt install -y build-essential git
 WORKDIR /app
 COPY . .
