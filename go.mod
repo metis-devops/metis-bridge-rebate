@@ -3,7 +3,7 @@ module github.com/metis-devops/metis-bridge-rebate
 go 1.25
 
 require (
-	github.com/ethereum/go-ethereum v1.16.5
+	github.com/ethereum/go-ethereum v1.16.6
 	github.com/go-sql-driver/mysql v1.9.3
 	github.com/islishude/bigint v1.3.3
 	github.com/jmoiron/sqlx v1.4.0
@@ -14,6 +14,7 @@ require (
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
+	github.com/ProjectZKM/Ziren/crates/go-runtime/zkvm_runtime v0.0.0-20251001021608-1fe7b43fc4d6 // indirect
 	github.com/bits-and-blooms/bitset v1.20.0 // indirect
 	github.com/consensys/gnark-crypto v0.18.0 // indirect
 	github.com/crate-crypto/go-eth-kzg v1.4.0 // indirect
