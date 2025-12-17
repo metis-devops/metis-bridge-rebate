@@ -36,4 +36,8 @@ Usage of metis-bridge-rebate:
         reserved balance (default 1)
   -start-block uint
         initial from height (default 7501326)
+  -uniswap-v3-apikey string
+        the uniswap v3 graphql api key
+  -uniswap-v3-graphql string
+        the uniswap v3 graphql endpoint (default "https://gateway.thegraph.com/api/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV")
 ```
