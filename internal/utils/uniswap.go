@@ -10,11 +10,17 @@ import (
 )
 
 type Uniswap struct {
-	client *graphql.Client
+	client   *graphql.Client
+	cache    map[string]*GetTokenResult
+	duration time.Duration // timeout for GetTokenResult cache
 }
 
-func NewUniswap(endpoint, apiKey string) *Uniswap {
-	return &Uniswap{graphql.New(endpoint, apiKey)}
+func NewUniswap(endpoint, apiKey string, duration time.Duration) *Uniswap {
+	return &Uniswap{
+		client:   graphql.New(endpoint, apiKey),
+		cache:    make(map[string]*GetTokenResult),
+		duration: duration,
+	}
 }
 
 var ErrNoTokenInfo = errors.New("no token info result")
@@ -41,6 +47,7 @@ type GetTokenResult struct {
 	ValueInEther float64
 	ValueInUSD   float64
 	Info         UniswapToken
+	timestamp    time.Time // cache timestamp
 }
 
 func (c Uniswap) GetToken(ctx context.Context, tokenAddress string) (*GetTokenResult, error) {
@@ -50,6 +57,13 @@ func (c Uniswap) GetToken(ctx context.Context, tokenAddress string) (*GetTokenRe
 	tokenAddress = strings.ToLower(tokenAddress)
 	if tokenAddress == EtherL1Address {
 		tokenAddress = WETH9Adddress
+	}
+
+	// check cache first
+	if res, ok := c.cache[tokenAddress]; ok {
+		if time.Since(res.timestamp) < c.duration {
+			return res, nil
+		}
 	}
 
 	var result struct {
@@ -77,5 +91,12 @@ func (c Uniswap) GetToken(ctx context.Context, tokenAddress string) (*GetTokenRe
 	ethPrice := result.EthPrices[0].Close
 	ethValue := result.TokenInfo[0].DerivedETH
 	tokenPrice := ethValue * ethPrice
-	return &GetTokenResult{ethValue, tokenPrice, result.TokenInfo[0]}, nil
+	res := &GetTokenResult{
+		ValueInEther: ethValue,
+		ValueInUSD:   tokenPrice,
+		Info:         result.TokenInfo[0],
+		timestamp:    time.Now(),
+	}
+	c.cache[tokenAddress] = res
+	return res, nil
 }

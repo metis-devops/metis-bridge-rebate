@@ -16,7 +16,7 @@ func TestUniswap_GetTokenPrice(t *testing.T) {
 	}
 	defer resp.Body.Close() //nolint:errcheck
 
-	c := NewUniswap(uniswapv3_subgraph_api, "")
+	c := NewUniswap(uniswapv3_subgraph_api, "", 0)
 
 	type Info struct {
 		/*

@@ -41,6 +41,7 @@ func main() {
 
 		UniswapEndpoint string
 		UniswapApiKey   string
+		UniswapTimeout  time.Duration
 	)
 
 	flag.Float64Var(&MaxDripUSD, "maxdrip", 250, "max drip usd value")
@@ -60,6 +61,7 @@ func main() {
 	flag.BoolVar(&OpenFaucet, "faucet", false, "open faucet or not")
 	flag.StringVar(&UniswapEndpoint, "uniswap-v3-graphql", "https://gateway.thegraph.com/api/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV", "the uniswap v3 graphql endpoint")
 	flag.StringVar(&UniswapApiKey, "uniswap-v3-apikey", "", "the uniswap v3 graphql api key")
+	flag.DurationVar(&UniswapTimeout, "uniswap-timeout", time.Hour, "the uniswap token price cache timeout duration")
 	flag.Parse()
 
 	if RangeSyncNumber < 1000 {
@@ -165,7 +167,7 @@ func main() {
 			EthClient:   l1rpc,
 			MetisClient: l2rpc,
 			Repositroy:  repository.NewMetis(db),
-			Uniswap:     utils.NewUniswap(UniswapEndpoint, UniswapApiKey),
+			Uniswap:     utils.NewUniswap(UniswapEndpoint, UniswapApiKey, UniswapTimeout),
 			// uniswap doesn't have goerli subgraph
 			MetisL1Contract: utils.MetisL1TokenAddress(utils.EthMainnnetChainId),
 			Prvkey:          prvkey,
