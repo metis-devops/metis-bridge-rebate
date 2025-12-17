@@ -13,9 +13,8 @@ type Uniswap struct {
 	client *graphql.Client
 }
 
-func NewUniswap() *Uniswap {
-	const uniswapv3_subgraph_api = "https://subgraph.satsuma-prod.com/b91d46e5018b/metis/community/uniswap-v3-mainnet/version/0.0.1/api"
-	return &Uniswap{graphql.New(uniswapv3_subgraph_api)}
+func NewUniswap(endpoint, apiKey string) *Uniswap {
+	return &Uniswap{graphql.New(endpoint, apiKey)}
 }
 
 var ErrNoTokenInfo = errors.New("no token info result")

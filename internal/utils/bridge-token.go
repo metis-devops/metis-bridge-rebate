@@ -19,7 +19,7 @@ func GetBridgeTokens(ctx context.Context) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck
 
 	var raw map[string]string
 	if err := json.NewDecoder(resp.Body).Decode(&raw); err != nil {

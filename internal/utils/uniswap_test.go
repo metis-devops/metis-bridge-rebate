@@ -8,13 +8,15 @@ import (
 )
 
 func TestUniswap_GetTokenPrice(t *testing.T) {
+	const uniswapv3_subgraph_api = "https://thegraph.com/explorer/api/playground/QmTZ8ejXJxRo7vDBS4uwqBeGoxLSWbhaA7oXa1RvxunLy7"
+
 	resp, err := http.Get("https://raw.githubusercontent.com/MetisProtocol/metis-bridge-resources/master/l1-token-list.json")
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck
 
-	c := NewUniswap()
+	c := NewUniswap(uniswapv3_subgraph_api, "")
 
 	type Info struct {
 		/*

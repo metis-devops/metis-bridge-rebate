@@ -9,15 +9,16 @@ import (
 )
 
 type Client struct {
+	apiKey   string
 	endpoint string
 	http     *http.Client
 }
 
-func New(endpoint string, client ...*http.Client) *Client {
+func New(endpoint, apiKey string, client ...*http.Client) *Client {
 	if len(client) > 0 {
-		return &Client{endpoint: endpoint, http: client[0]}
+		return &Client{endpoint: endpoint, apiKey: apiKey, http: client[0]}
 	}
-	return &Client{endpoint: endpoint, http: http.DefaultClient}
+	return &Client{endpoint: endpoint, apiKey: apiKey, http: http.DefaultClient}
 }
 
 func (c Client) Call(result interface{}, query string, vars map[string]interface{}) error {
@@ -36,12 +37,15 @@ func (c Client) CallContext(ctx context.Context, result interface{}, query strin
 	}
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Accept", "application/json")
+	if c.apiKey != "" {
+		req.Header.Add("Authorization", "Bearer "+c.apiKey)
+	}
 
 	resp, err := c.http.Do(req)
 	if err != nil {
 		return fmt.Errorf("graphql: do req: %w", err)
 	}
-	defer resp.Body.Close()
+	defer resp.Body.Close() // nolint:errcheck
 
 	var returns Response
 	if err := json.NewDecoder(resp.Body).Decode(&returns); err != nil {
