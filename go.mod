@@ -3,7 +3,7 @@ module github.com/metis-devops/metis-bridge-rebate
 go 1.25
 
 require (
-	github.com/ethereum/go-ethereum v1.16.7
+	github.com/ethereum/go-ethereum v1.16.8
 	github.com/go-sql-driver/mysql v1.9.3
 	github.com/islishude/bigint v1.3.3
 	github.com/jmoiron/sqlx v1.4.0
