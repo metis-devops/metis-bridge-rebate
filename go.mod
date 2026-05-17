@@ -3,7 +3,7 @@ module github.com/metis-devops/metis-bridge-rebate
 go 1.25.0
 
 require (
-	github.com/ethereum/go-ethereum v1.17.2
+	github.com/ethereum/go-ethereum v1.17.3
 	github.com/go-sql-driver/mysql v1.10.0
 	github.com/islishude/bigint v1.3.3
 	github.com/jmoiron/sqlx v1.4.0
@@ -38,7 +38,7 @@ require (
 	go.opentelemetry.io/otel v1.40.0 // indirect
 	go.opentelemetry.io/otel/metric v1.40.0 // indirect
 	go.opentelemetry.io/otel/trace v1.40.0 // indirect
-	golang.org/x/crypto v0.44.0 // indirect
+	golang.org/x/crypto v0.47.0 // indirect
 	golang.org/x/exp v0.0.0-20241108190413-2d47ceb2692f // indirect
 	golang.org/x/sys v0.40.0 // indirect
 )
