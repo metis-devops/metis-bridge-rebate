@@ -1,6 +1,6 @@
 module github.com/metis-devops/metis-bridge-rebate
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/ethereum/go-ethereum v1.17.5
@@ -8,7 +8,7 @@ require (
 	github.com/islishude/bigint v1.3.3
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/sirupsen/logrus v1.10.2
-	golang.org/x/sync v0.20.0
+	golang.org/x/sync v0.23.0
 )
 
 require (
