@@ -8,7 +8,7 @@ require (
 	github.com/islishude/bigint v1.3.3
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/sirupsen/logrus v1.10.2
-	golang.org/x/sync v0.23.0
+	golang.org/x/sync v0.24.0
 )
 
 require (
